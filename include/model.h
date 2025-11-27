@@ -1,5 +1,6 @@
 /* Regroupe la structure */
 
+#include <stdbool.h>
 
 #define MAX_ENEMIES 55
 #define MAX_SHIELD 3
@@ -25,7 +26,7 @@ typedef struct Spaceship {
     //La position et la vitesse du vaisseau
     int x,y,speedX,speedY;
     //Un boolean pour savoir si le vaisseau est toujours "vivant"
-    int state;
+    bool state;
 
     
 } Spaceship;
@@ -43,6 +44,7 @@ typedef struct Shield {
 
     int x,y;
     int resistance;
+    bool active; /*detruite ou pas */
 
 } Shield;
 
@@ -58,20 +60,24 @@ typedef struct GameArea {
 
     int playerProjec,enemiesProjec;
 
+    /*etat de la game*/
+
+    bool game_over;
+
 } GameArea;
 
 
 
 //TODO Initialisation
-void initGame();
+void initGame(GameArea *game);
 
 //TODO Gerer les collisions 
-void manageCollisions();
+void manageCollisions(GameArea *game);
 //TODO Gerer du mouvemnt en groupe
-void manageEnemiesMovement();
+void manageEnemiesMovement(GameArea *game);
 
 //TODO Gestion des niveaux
-void manageLevels();
+void manageLevels(GameArea *game);
 
 //TODO Gestion des scores et vies et collisions 
-void manageScoreLives();
+void manageScoreLives(GameArea *game);

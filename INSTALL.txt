@@ -1,0 +1,46 @@
+##########################################
+##		PRE-REQUIS		##
+##########################################
+
+Paquets sources dans le dossier "3rdParty" :
+- SDL3_image-3.2.4
+- SDL3-3.2.24
+- SDL3_ttf
+
+Paquets via "apt-get" :
+- libncurses6
+- libncurses-dev
+
+S'assurer d'avoir les droits d'exécution
+pour les scripts projet (chmod u+x <fichier>) :
+- clean.sh
+- build.sh
+
+
+##########################################
+##		COMPILATION		##
+##########################################
+
+Il faut compiler les librairies SDL3 dans
+le dossier "3rdParty". Si ce n'est pas déjà
+fait, il est mieux de nettoyer les précédentes
+compilations avec l'exécutable "clean.sh".
+
+Ensuite, la compilation se fera avec le
+script "build.sh".
+
+##########################################
+##              LANCEMENT	        ##
+##########################################
+
+L'exécutable produit avec la commande "make"
+exécuté par le script "build.sh" précédemment
+se trouve dans le dossier "build" et se nomme
+"taquin".
+
+Les instructions d'exécution sont les suivantes
+en étant à la racine du projet :
+
+./build/spaceInvaders <modeAffichage>
+
+modeAffichage est l'une des valeurs dans l'ensemble {sdl, ncurses}

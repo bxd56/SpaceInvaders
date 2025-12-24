@@ -1,0 +1,13 @@
+/Users/aboubou/Informatique/L3/C_avance/SpaceInvaders/3rdParty/SDL3_ttf-3.2.2/CMakeFiles/SDL3_ttf-shared.dir
+/Users/aboubou/Informatique/L3/C_avance/SpaceInvaders/3rdParty/SDL3_ttf-3.2.2/CMakeFiles/glfont.dir
+/Users/aboubou/Informatique/L3/C_avance/SpaceInvaders/3rdParty/SDL3_ttf-3.2.2/CMakeFiles/showfont.dir
+/Users/aboubou/Informatique/L3/C_avance/SpaceInvaders/3rdParty/SDL3_ttf-3.2.2/CMakeFiles/testapp.dir
+/Users/aboubou/Informatique/L3/C_avance/SpaceInvaders/3rdParty/SDL3_ttf-3.2.2/CMakeFiles/testgputext.dir
+/Users/aboubou/Informatique/L3/C_avance/SpaceInvaders/3rdParty/SDL3_ttf-3.2.2/CMakeFiles/package.dir
+/Users/aboubou/Informatique/L3/C_avance/SpaceInvaders/3rdParty/SDL3_ttf-3.2.2/CMakeFiles/package_source.dir
+/Users/aboubou/Informatique/L3/C_avance/SpaceInvaders/3rdParty/SDL3_ttf-3.2.2/CMakeFiles/edit_cache.dir
+/Users/aboubou/Informatique/L3/C_avance/SpaceInvaders/3rdParty/SDL3_ttf-3.2.2/CMakeFiles/rebuild_cache.dir
+/Users/aboubou/Informatique/L3/C_avance/SpaceInvaders/3rdParty/SDL3_ttf-3.2.2/CMakeFiles/list_install_components.dir
+/Users/aboubou/Informatique/L3/C_avance/SpaceInvaders/3rdParty/SDL3_ttf-3.2.2/CMakeFiles/install.dir
+/Users/aboubou/Informatique/L3/C_avance/SpaceInvaders/3rdParty/SDL3_ttf-3.2.2/CMakeFiles/install/local.dir
+/Users/aboubou/Informatique/L3/C_avance/SpaceInvaders/3rdParty/SDL3_ttf-3.2.2/CMakeFiles/install/strip.dir

@@ -1,77 +1,83 @@
-/* Regroupe la structure */
+#ifndef MODEL_H
+#define MODEL_H
 
+#include <stdbool.h>
 
+// --- CONSTANTES ---
 #define MAX_ENEMIES 55
 #define MAX_SHIELD 3
 #define MAX_PLAYER_SHOTS 100
 #define MAX_ENEMIES_SHOTS 100
 
-typedef enum {DIR_UP,DIR_DOWN} Direction;
+// --- 1. DÉFINITIONS DE BASE ---
+typedef enum {
+    GAME_MENU,    // Le menu d'accueil
+    GAME_PLAYING  // Le jeu en cours
+} GameState;
+
+
+typedef enum {
+    DIR_UP,
+    DIR_DOWN
+} Direction;
 
 typedef struct Projectile {
-
-    int x,y;
-
+    int x, y;
     float speed;
-    //Les directions du tir pour la représentation en vue
+    bool active;
     Direction dir;
-
 } Projectile;
 
-
-/*Structure pour le vaisseau (commun pour le joueur et les ennemi)*/
 typedef struct Spaceship {
-
-    //La position et la vitesse du vaisseau
-    int x,y,speedX,speedY;
-    //Un boolean pour savoir si le vaisseau est toujours "vivant"
-    int state;
-
-    
+    int x, y, speedX, speedY;
+    bool state; // Vivant ou mort
 } Spaceship;
 
-/* Structure pour le joueur pour les spécificités du joueur*/
-typedef struct Player {
-
-    int lives, score;
-    Spaceship spaceship;
-
-} Player;
-
-/* Structure qui représente le bouclier */
 typedef struct Shield {
-
-    int x,y;
+    int x, y;
     int resistance;
-
+    bool active;
 } Shield;
 
+// --- 2. DÉFINITIONS DÉPENDANTES 
+typedef struct Player {
+    int lives, score;
+    Spaceship spaceship; // Utilise struct Spaceship définie plus haut
+} Player;
+
+// --- 3. STRUCTURE PRINCIPALE ---
+
 typedef struct GameArea {
-
-    int width,heigth;
-
+    int width, height; // Attention à l'orthographe : height
+    GameState state;
     Player player;
     Spaceship enemies[MAX_ENEMIES];
     Shield shields[MAX_SHIELD];
     Projectile playerShots[MAX_PLAYER_SHOTS];
     Projectile enemiesShots[MAX_ENEMIES_SHOTS];
 
-    int playerProjec,enemiesProjec;
+    int playerProjec, enemiesProjec;
+
+    // Variables d'état du jeu ajoutées récemment
+    int enemiesDirection; 
+    int currentLevel;     
+
+    bool game_over;
 
 } GameArea;
 
 
+// --- PROTOTYPES DES FONCTIONS ---
 
-//TODO Initialisation
-void initGame();
+void initGame(GameArea *game);
+void manageCollisions(GameArea *game);
+void manageEnemiesMovement(GameArea *game);
+void manageLevels(GameArea *game);
+void manageScoreLives(GameArea *game);
 
-//TODO Gerer les collisions 
-void manageCollisions();
-//TODO Gerer du mouvemnt en groupe
-void manageEnemiesMovement();
 
-//TODO Gestion des niveaux
-void manageLevels();
+void playerShoot(GameArea *game);       // tir
+void enemyShoot(GameArea *game);
+void manageProjectiles(GameArea *game);
 
-//TODO Gestion des scores et vies et collisions 
-void manageScoreLives();
+#endif

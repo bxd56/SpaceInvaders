@@ -13,7 +13,6 @@
 #define SCREEN_W 80
 #define SCREEN_H 40
 
-//TODO : explosion et texte 
 
 // --- Variables globales ---
 static SDL_Window *window = NULL;
@@ -24,6 +23,7 @@ static SDL_Texture *tex_enemy   = NULL;
 static SDL_Texture *tex_shield  = NULL;
 static SDL_Texture *tex_player_shot = NULL;
 static SDL_Texture *tex_enemy_shot  = NULL;
+static SDL_Texture *tex_explosion = NULL;
 
 static TTF_Font *font_small = NULL;
 static TTF_Font *font_big   = NULL;
@@ -62,7 +62,7 @@ static void init_sdl() {
         "Space Invaders",
         SCREEN_W * TILE,
         SCREEN_H * TILE,
-        0 // pas de flags nécessaires en SDL3
+        SDL_WINDOW_RESIZABLE // fenêtre redimensionnable
     );
 
     if (!window) {
@@ -83,6 +83,8 @@ static void init_sdl() {
     tex_shield = load_texture("assets/shield.png");
     tex_player_shot = load_texture("assets/projectile.png");
     tex_enemy_shot  = load_texture("assets/projectile.png");
+    tex_explosion = load_texture("assets/explosion.jpg");
+
 
     font_small = TTF_OpenFont("assets/font.ttf", 18);
     font_big   = TTF_OpenFont("assets/font.ttf", 36);
@@ -174,6 +176,15 @@ static void draw_menu_sdl() {
 
     SDL_RenderPresent(renderer);
 }
+static void draw_text_center(const char *text, int y, SDL_Color color, TTF_Font *font) {
+    int w,h;
+    if (!TTF_GetStringSize(font, text, strlen(text), &w, &h)) {
+        fprintf(stderr, "Erreur TTF_GetStringSize: %s\n", SDL_GetError());
+    }
+    int x = (SCREEN_W * TILE - w)/2;
+    draw_text(text, x, y, color, font);
+}
+
 
 // Dessin du jeu
 static void draw_sdl(GameArea *game) {
@@ -253,18 +264,40 @@ static void draw_sdl(GameArea *game) {
                 if (!tex_enemy_shot) fprintf(stderr,"Erreur chargement projectile.png");
             }
         }
+        for (int i = 0; i < MAX_EXPLOSIONS; i++) {
+            if (game->explosions[i].active) {
+
+                SDL_FRect dst = {
+                    game->explosions[i].x * TILE,
+                    game->explosions[i].y * TILE,
+                    TILE,
+                    TILE
+                };
+
+                SDL_FRect src = {
+                    game->explosions[i].frame * TILE,
+                    0,
+                    TILE,
+                    TILE
+                };
+
+                SDL_RenderTexture(renderer, tex_explosion, &src, &dst);
+            }
+        }
 
         
     }
 
     // --- Game Over ---
     if (game->game_over) {
-            SDL_Color red = {255, 0, 0, 255};
-            SDL_Color white = {255, 255, 255, 255};
+        SDL_Color red = {255, 0, 0, 255};
+        SDL_Color white = {255, 255, 255, 255};
 
-            draw_text("GAME OVER", SCREEN_W/2 - 120, SCREEN_H/2 - 40, red, font_big);
-            draw_text("R POUR REJOUER", SCREEN_W/2 - 100, SCREEN_H/2 + 20, white, font_small);
-            draw_text("Q POUR QUITTER", SCREEN_W/2 - 100, SCREEN_H/2 + 50, white, font_small);
+        draw_text_center("GAME OVER", (SCREEN_H*TILE)/2 - 50, red, font_big);
+        draw_text_center("R POUR REJOUER", (SCREEN_H*TILE)/2 + 10, white, font_small);
+        draw_text_center("ESC POUR QUITTER", (SCREEN_H*TILE)/2 + 50, white, font_small);
+
+
     }
 
     SDL_RenderPresent(renderer);

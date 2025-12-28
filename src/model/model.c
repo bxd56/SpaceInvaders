@@ -53,6 +53,28 @@ void initGame(GameArea *game){
         game->shields[i] = shield;
     }
 }
+void creeExplosion(GameArea *game, int x, int y) {
+    for (int i = 0; i < MAX_EXPLOSIONS; i++) {
+        if (!game->explosions[i].active) {
+            game->explosions[i].x = x;
+            game->explosions[i].y = y;
+            game->explosions[i].frame = 0;
+            game->explosions[i].max_frames = 6; // animation courte
+            game->explosions[i].active = true;
+            break;
+        }
+    }
+}
+void updateExplosions(GameArea *game) {
+    for (int i = 0; i < MAX_EXPLOSIONS; i++) {
+        if (game->explosions[i].active) {
+            game->explosions[i].frame++;
+            if (game->explosions[i].frame >= game->explosions[i].max_frames) {
+                game->explosions[i].active = false;
+            }
+        }
+    }
+}
 
 void manageEnemiesMovement(GameArea *game){
     bool changeDir = false;
@@ -192,6 +214,7 @@ void manageCollisions(GameArea *game) {
             if (!game->enemies[j].state) continue;
             if (game->playerShots[i].x == game->enemies[j].x && 
                 game->playerShots[i].y == game->enemies[j].y) {
+                creeExplosion(game, game->enemies[j].x, game->enemies[j].y);
                 game->enemies[j].state = false;
                 game->playerShots[i].active = false;
                 game->player.score += 10;
@@ -204,6 +227,7 @@ void manageCollisions(GameArea *game) {
         if (!game->enemiesShots[i].active) continue;
         if (game->enemiesShots[i].x == game->player.spaceship.x && 
             game->enemiesShots[i].y == game->player.spaceship.y) {
+            creeExplosion(game,game->player.spaceship.x,game->player.spaceship.y);
             game->enemiesShots[i].active = false;
             game->player.lives -= 1;
             if (game->player.lives <= 0) game->game_over = true;
@@ -245,6 +269,7 @@ void manageCollisions(GameArea *game) {
 
         // Si la résistance tombe à 0, le bouclier disparaît
         if (game->shields[s].resistance <= 0) {
+            creeExplosion(game, game->shields[s].x, game->shields[s].y);
             game->shields[s].active = false;
         }
     }
@@ -260,6 +285,7 @@ void manageCollisions(GameArea *game) {
             abs(game->enemies[i].x - game->player.spaceship.x) < 2) {
             
             // C'est perdu 
+            creeExplosion(game,game->player.spaceship.x,game->player.spaceship.y);
             game->player.lives = 0; 
             game->game_over = true;
         }
@@ -268,6 +294,7 @@ void manageCollisions(GameArea *game) {
 
     // Si un ennemi touche le bas de l'écran
     if (game->enemies[i].y >= game->height - 1) {
+        creeExplosion(game, game->enemies[i].x, game->enemies[i].y);
         game->game_over = true;
     }
 }

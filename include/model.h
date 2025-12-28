@@ -8,6 +8,7 @@
 #define MAX_SHIELD 3
 #define MAX_PLAYER_SHOTS 100
 #define MAX_ENEMIES_SHOTS 100
+#define MAX_EXPLOSIONS 32
 
 // --- 1. DÉFINITIONS DE BASE ---
 typedef enum {
@@ -45,6 +46,14 @@ typedef struct Player {
     Spaceship spaceship; // Utilise struct Spaceship définie plus haut
 } Player;
 
+typedef struct {
+    int x, y;
+    int frame;      // frame actuelle de l'animation
+    int max_frames; // nombre total de frames
+    bool active;
+} Explosion;
+
+
 // --- 3. STRUCTURE PRINCIPALE ---
 
 typedef struct GameArea {
@@ -55,6 +64,7 @@ typedef struct GameArea {
     Shield shields[MAX_SHIELD];
     Projectile playerShots[MAX_PLAYER_SHOTS];
     Projectile enemiesShots[MAX_ENEMIES_SHOTS];
+    Explosion explosions[MAX_EXPLOSIONS];
 
     int playerProjec, enemiesProjec;
 
@@ -74,6 +84,7 @@ void manageCollisions(GameArea *game);
 void manageEnemiesMovement(GameArea *game);
 void manageLevels(GameArea *game);
 void manageScoreLives(GameArea *game);
+void updateExplosions(GameArea *game);
 
 
 void playerShoot(GameArea *game);       // tir

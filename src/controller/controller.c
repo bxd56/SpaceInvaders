@@ -71,6 +71,7 @@ void run_game(int argc, char **argv) {
                 enemyShoot(&game);
 
             manageCollisions(&game);
+            updateExplosions(&game);
             manageLevels(&game);
             manageScoreLives(&game);
         }

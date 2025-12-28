@@ -79,27 +79,40 @@ void updateExplosions(GameArea *game) {
 void manageEnemiesMovement(GameArea *game){
     bool changeDir = false;
 
-    for(int i=0; i<MAX_ENEMIES; i++) {
-        if (!game->enemies[i].state) continue;
+    // Compter les ennemis vivants
+    int alive_count = 0;
+    for(int i = 0; i < MAX_ENEMIES; i++) {
+        if(game->enemies[i].state) alive_count++;
+    }
+
+    // Augmenter la vitesse de chaque ennemi selon le nombre d'ennemis vivants et le niveau
+    for(int i=0; i<MAX_ENEMIES; i++){
+        if(!game->enemies[i].state) continue;
+
+        // Vitesse dynamique : base + bonus niveau + bonus élimination ennemis
+        game->enemies[i].speedX = 1.0f + (game->currentLevel - 1) * 0.5f
+                                         + (MAX_ENEMIES - alive_count) * 0.1f;
 
         // Déplacement
-        game->enemies[i].x += (game->enemies[i].speedX * game->enemiesDirection);
+        game->enemies[i].x += game->enemies[i].speedX * game->enemiesDirection;
 
         // Vérification des bords
-        // CORRECTION : Utilisation de game->enemiesDirection
         if ((game->enemies[i].x >= game->width - 2 && game->enemiesDirection == 1) ||
             (game->enemies[i].x <= 1 && game->enemiesDirection == -1)) {
             changeDir = true;
         }
     }
 
+    // Changement de direction et descente
     if (changeDir) {
         game->enemiesDirection *= -1; // Inverse la direction
         for(int i=0; i<MAX_ENEMIES; i++) {
-            game->enemies[i].y += 1; // Descend d'une ligne
+            if(game->enemies[i].state)
+                game->enemies[i].y += 1; // Descend d'une ligne
         }
     }
 }
+
 
 void manageLevels(GameArea *game){
     // Vérifier si tous les ennemis sont morts

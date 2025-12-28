@@ -281,7 +281,7 @@ static void draw_sdl(GameArea *game) {
                     TILE
                 };
 
-                SDL_RenderTexture(renderer, tex_explosion, &src, &dst);
+                SDL_RenderTexture(renderer, tex_explosion, NULL, &dst);
             }
         }
 

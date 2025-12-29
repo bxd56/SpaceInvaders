@@ -9,7 +9,6 @@ int main(int argc, char **argv) {
     srand(time(NULL));
 
     // Lancer le jeu avec le choix du backend
-    // "--sdl" active SDL, sinon Ncurses
     run_game(argc, argv);
 
     return 0;

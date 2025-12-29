@@ -36,7 +36,10 @@ static SDL_FRect btn_quit  = { SCREEN_W/2 - 100, SCREEN_H/2 + 20, 200, 50 };
 // --- Fonctions internes ---
 static SDL_Texture* load_texture(const char *file) {
     SDL_Surface *surf = IMG_Load(file);
-    
+    if (!surf){
+        perror("Load texture image failed");
+        return NULL;
+    }
     SDL_Texture *tex = SDL_CreateTextureFromSurface(renderer, surf);
     SDL_DestroySurface(surf);
     if (!tex) {
@@ -104,10 +107,7 @@ static void close_sdl() {
     if (tex_enemy_shot) SDL_DestroyTexture(tex_enemy_shot);
     if (font_small) TTF_CloseFont(font_small);
     if (font_big)   TTF_CloseFont(font_big);
-
-
-
-
+    
     if (window) SDL_DestroyWindow(window);
 
     TTF_Quit();

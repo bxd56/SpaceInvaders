@@ -54,10 +54,11 @@ typedef struct {
 } Explosion;
 
 
-// --- 3. STRUCTURE PRINCIPALE ---
+// --- STRUCTURE PRINCIPALE ---
 
 typedef struct GameArea {
-    int width, height; // Attention à l'orthographe : height
+    int width, height; 
+
     GameState state;
     Player player;
     Spaceship enemies[MAX_ENEMIES];
@@ -67,13 +68,9 @@ typedef struct GameArea {
     Explosion explosions[MAX_EXPLOSIONS];
 
     int playerProjec, enemiesProjec;
-
-    // Variables d'état du jeu ajoutées récemment
-    int enemiesDirection; 
-    int currentLevel;     
+    int enemiesDirection,currentLevel;     
 
     bool game_over;
-
 } GameArea;
 
 
@@ -85,9 +82,7 @@ void manageEnemiesMovement(GameArea *game);
 void manageLevels(GameArea *game);
 void manageScoreLives(GameArea *game);
 void updateExplosions(GameArea *game);
-
-
-void playerShoot(GameArea *game);       // tir
+void playerShoot(GameArea *game);     
 void enemyShoot(GameArea *game);
 void manageProjectiles(GameArea *game);
 

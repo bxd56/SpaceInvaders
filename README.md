@@ -20,7 +20,7 @@ par les deux interfaces sans duplication de code.
 ## Compilation
 
 Les instructions détaillées d’installation et de compilation sont disponibles
-dans le fichier `install.txt`.
+dans le fichier `INSTALL.txt`.
 
 ## Exécution
 
@@ -79,3 +79,6 @@ Les vues :
     - Utilise une boucle avec framerate fixe (~60 FPS) grâce à un timestep contrôlé par `usleep`.
     - La logique du jeu (déplacements, tirs, collisions) est mise à jour à intervalles réguliers afin d’assurer un comportement identique entre ncurses et SDL.
 
+## Licence 
+
+Ce projet est sous licence MIT. Voir le fichier `LICENSE.txt` pour plus de détails

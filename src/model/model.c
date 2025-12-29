@@ -125,7 +125,6 @@ void manageLevels(GameArea *game){
     }
 
     if(allDead){
-        // CORRECTION : utilisation de game->currentLevel
         game->currentLevel++;
         // On remet les ennemis (plus rapides grâce à initEnemies qui utilise currentLevel)
         initEnemies(game);

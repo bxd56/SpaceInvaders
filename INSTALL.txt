@@ -36,7 +36,7 @@ script "build.sh".
 L'exécutable produit avec la commande "make"
 exécuté par le script "build.sh" précédemment
 se trouve dans le dossier "build" et se nomme
-"taquin".
+"spaceInvaders".
 
 Les instructions d'exécution sont les suivantes
 en étant à la racine du projet :

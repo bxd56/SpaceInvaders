@@ -14,7 +14,7 @@ LIBRATY_PATH ?=-L3rdParty/SDL3-3.2.24/build -L3rdParty/SDL3_image-3.2.4/build -L
 
 $(BUILD_DIR)/$(TARGET_EXEC): $(OBJS)
 	@echo Linking: "$@ ( $(foreach f,$^,$(subst $(BUILD_DIR)/$(SRC_DIRS),,$f)) )"	
-	@$(CC) $(OBJS) -o $@ $(LDFLAGS) $(LIBRATY_PATH) -Wl,-rpath,3rdParty/SDL3-3.2.24/build -Wl,-rpath,3rdParty/SDL3_image-3.2.4/build -Wl,-rpath,3rdParty/SDL3_ttf-3.2.2
+	@$(CC) $(OBJS) -o $@ $(LDFLAGS) $(LIBRATY_PATH) -Wl,-rpath=3rdParty/SDL3-3.2.24/build -Wl,-rpath=3rdParty/SDL3_image-3.2.4/build -Wl,-rpath=3rdParty/SDL3_ttf-3.2.2
 	
 $(BUILD_DIR)/%.c.o: %.c
 	@echo Compiling: $<
